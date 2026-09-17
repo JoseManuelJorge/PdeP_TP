@@ -1,42 +1,3 @@
-object casa{
-  var suciedad = 0
-  var cuidador = tom
-  var quilombero = null
-
-  method cuidador(){
-    return cuidador
-  }
-
-  method ensuciar(cantidad){
-    suciedad = suciedad + cantidad
-  }
-
-  method limpiar(cantidad){
-    suciedad = 0.max(suciedad - cantidad)
-  }
-
-  method limpiarTodo(){
-    suciedad = 0
-  }
-
-  method pasarDia() {
-    cuidador.limpiarCasa()
-    if(quilombero != null and cuidador.atrapar(quilombero))
-    {
-      quilombero = null
-    }
-  }
-
-  method pasarNoche() {
-    cuidador.dormir()
-    if(quilombero != null)
-    {
-      quilombero.quilombo()
-    }
-  }
-}
-
-
 object tom
 {
   var energia = 100
@@ -113,29 +74,6 @@ object robocat
   }
 }
 
-object pandilla {
-  const miembros = [jerry, tuffy]
-
-  method agregarMiembro(nuevo){
-    miembros.add(nuevo)
-  }
-
-  method velocidad() {
-    return (miembros.min({m => m.velocidad()}).velocidad() / 2)
-    
-  }
-  
-  method quilombo() {
-    // 1. Todos los miembros hacen su quilombo
-    miembros.forEach({ m => m.quilombo() })
-    
-    // 2. Si son más de 3, interrumpen el sueño
-    if (miembros.size() > 3) {
-      casa.cuidador().interrumpirSuenio()
-    }
-  }
-} 
-
 object spike
 {
   var peso = 80
@@ -177,5 +115,79 @@ object pato{
     casa.ensuciar(200)
     casa.cuidador().interrumpirSuenio()
   }
-
 }
+
+object pandilla {
+  const miembros = [jerry, tuffy]
+
+  method agregarMiembro(nuevo){
+    miembros.add(nuevo)
+  }
+
+  method velocidad() {
+    return (miembros.min({m => m.velocidad()}).velocidad() / 2)
+    
+  }
+  
+  method quilombo() {
+    // 1. Todos los miembros hacen su quilombo
+    miembros.forEach({ m => m.quilombo() })
+    
+    // 2. Si son más de 3, interrumpen el sueño
+    if (miembros.size() > 3) {
+      casa.cuidador().interrumpirSuenio()
+    }
+  }
+} 
+
+object casa{
+  var suciedad = 0
+  var cuidador = tom
+  var quilombero = null
+
+  method cuidador(){
+    return cuidador
+  }
+
+  method cuidador(_cuidador){
+    cuidador = _cuidador
+  }
+
+  method quilombero(){
+    return quilombero
+  }
+
+  method quilombero(_quilombero){
+    quilombero = _quilombero
+  }
+
+  method ensuciar(cantidad){
+    suciedad = suciedad + cantidad
+  }
+
+  method limpiar(cantidad){
+    suciedad = 0.max(suciedad - cantidad)
+  }
+
+  method limpiarTodo(){
+    suciedad = 0
+  }
+
+  method pasarDia() {
+    cuidador.limpiarCasa()
+    if(quilombero != null and cuidador.atrapar(quilombero))
+    {
+      quilombero = null
+    }
+  }
+
+  method pasarNoche() {
+    cuidador.dormir()
+    if(quilombero != null)
+    {
+      quilombero.quilombo()
+    }
+  }
+}
+
+
