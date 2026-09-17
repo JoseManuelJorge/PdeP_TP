@@ -1,9 +1,115 @@
-/*import example.pepita
+import example.tom
+import example.jerry
+import example.casa
+import example.pato
+import example.robocat
+import example.spike
+import example.pandilla
+import example.tuffy
 
-describe "group of tests for pepita" {
+describe "Tests de la Casa" {
+  test "Paso del dia captura exitosa" {
+    casa.cuidador(tom)
+    casa.quilombero(pato)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+    assert.equals(true, tom.atrapar(casa.quilombero()))
+  }
+  test "Paso del dia captura fallida" {
+    casa.cuidador(tom)
+    casa.quilombero(jerry)
+
+    assert.equals(false, tom.atrapar(casa.quilombero()))
+  }  
+
+  test "Paso de la noche sin quilombero" {
+    casa.cuidador(tom)
+    casa.pasarNoche()
+    assert.equals(150, tom.energia())
   }
 
-}*/
+  test "Paso de la noche con quilombero" {
+    casa.cuidador(tom)
+    casa.quilombero(jerry)
+    casa.pasarNoche()
+    assert.equals(110, casa.suciedad())
+    assert.equals(101, jerry.peso())
+  }
+}
+
+describe "Tests de los Cuidadores" {
+  
+  test "Tom limpia la casa, gasta energia y calcula bien su velocidad" {
+    casa.limpiarTodo()
+    casa.ensuciar(150)
+    
+    tom.limpiarCasa()
+    
+    assert.equals(50, casa.suciedad())
+    assert.equals(60, tom.energia())
+    assert.equals(11, tom.velocidad())
+  }
+
+  test "Robocat limpia toda la casa sin importar la suciedad y atrapa a cualquiera" {
+    casa.limpiarTodo()
+    casa.ensuciar(1000)
+    
+    robocat.limpiarCasa()
+    
+    assert.equals(0, casa.suciedad())
+    assert.equals(true, robocat.atrapar(jerry))
+  }
+
+  test "Spike atrapa por peso y su energia cambia al dormir y ser interrumpido" {
+    assert.equals(false, spike.atrapar(jerry))
+    assert.equals(true, spike.atrapar(pato))
+    
+    spike.dormir()
+    assert.equals(125, spike.energia())
+    
+    spike.interrumpirSuenio()
+    assert.equals(85, spike.energia())
+  }
+}
+
+describe "Tests de los Quilomberos y la Pandilla" {
+
+  test "Tuffy interrumpe el sueño del cuidador de la casa al hacer quilombo" {
+    casa.cuidador(tom) 
+    
+    tuffy.quilombo() 
+    assert.equals(80, tom.energia())
+  }
+
+  test "Pato ensucia mucho y tambien interrumpe el suenio" {
+    casa.limpiarTodo()
+    casa.cuidador(spike)
+    
+    pato.quilombo()
+    
+    assert.equals(200, casa.suciedad())
+    assert.equals(60, spike.energia())
+  }
+
+  test "Pandilla calcula su velocidad en base al mas lento y delega el quilombo" {
+    assert.equals(5, pandilla.velocidad())
+    
+    casa.limpiarTodo()
+    casa.cuidador(tom) 
+    
+    pandilla.quilombo() 
+    
+    assert.equals(110, casa.suciedad())
+    assert.equals(80, tom.energia()) 
+    assert.equals(101, jerry.peso())
+  }
+  
+  test "Pandilla interrumpe el sueño extra si supera los 3 miembros" {
+    casa.cuidador(tom)
+
+    pandilla.agregarMiembro(pato)
+    pandilla.agregarMiembro(pato) 
+    
+    pandilla.quilombo()
+    assert.equals(20, tom.energia())
+  }
+}

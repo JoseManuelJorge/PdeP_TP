@@ -2,6 +2,8 @@ object tom
 {
   var energia = 100
 
+  method energia() = energia
+
   method limpiarCasa(){
     casa.limpiar(100)
     energia = energia - 40
@@ -29,7 +31,7 @@ object jerry{
   var peso = 100
 
   method velocidad(){
-    return 10 - peso 
+    return peso - 10 
   }
 
   method peso() = peso
@@ -80,6 +82,8 @@ object spike
   
   var energia = 100
 
+  method energia() = energia
+
   method limpiarCasa(){
     casa.limpiar(50)
     energia = energia - 10
@@ -108,7 +112,7 @@ object pato{
   method peso() = peso
 
   method velocidad() {
-    return 99
+    return 1
   }
 
   method quilombo(){
@@ -160,6 +164,8 @@ object casa{
   method quilombero(_quilombero){
     quilombero = _quilombero
   }
+
+  method suciedad() = suciedad
 
   method ensuciar(cantidad){
     suciedad = suciedad + cantidad
